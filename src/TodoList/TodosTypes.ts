@@ -5,4 +5,5 @@ export interface TodoInputTypes {
 
 export interface TodosTypes extends TodoInputTypes {
   id: number;
+  done: boolean;
 }
