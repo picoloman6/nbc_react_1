@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
+import { StyledTodoListWrapper } from './TodoList.style';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodosTypes[]>([
@@ -44,7 +45,7 @@ const TodoList = () => {
   };
 
   return (
-    <div>
+    <StyledTodoListWrapper>
       <TodoInput addTodos={addTodos} />
       {todos.length === 0 && <span>내용을 입력하세요</span>}
       {todos.length > 0 && (
@@ -63,7 +64,7 @@ const TodoList = () => {
           done={true}
         />
       )}
-    </div>
+    </StyledTodoListWrapper>
   );
 };
 

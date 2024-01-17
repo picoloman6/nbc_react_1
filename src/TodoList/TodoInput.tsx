@@ -32,18 +32,20 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
         <label>제목</label>
         <StyledTodoInput
           placeholder='제목을 입력하세요'
-          value={input.name}
           name='name'
+          value={input.name}
           onChange={onChangeInput}
+          autoComplete='off'
         />
       </div>
       <div>
         <label>내용</label>
         <StyledTodoInput
           placeholder='내용을 입력하세요'
-          value={input.content}
           name='content'
+          value={input.content}
           onChange={onChangeInput}
+          autoComplete='off'
         />
       </div>
       <button onClick={onClickButton}>추가하기</button>

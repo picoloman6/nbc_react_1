@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
 
+export const StyledTodoListWrapper = styled.div`
+  height: 70%;
+`;
+
 export const StyledTodoInputWrapper = styled.form`
   display: flex;
   justify-content: space-between;
@@ -29,6 +33,15 @@ export const StyledTodoItemsWrapper = styled.div`
   gap: 50px;
 
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+    border-radius: 5px;
+  }
 `;
 
 export const StyledItemLable = styled.p`
@@ -57,6 +70,16 @@ export const StyledTodoItem = styled.div`
   > span:nth-child(2) {
     height: 55%;
     overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 100%;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #a0a0a0;
+      border-radius: 5px;
+    }
   }
 
   > div {
