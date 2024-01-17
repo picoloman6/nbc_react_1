@@ -2,14 +2,15 @@ import { TodosTypes } from './TodosTypes';
 
 interface TodoContentPropsTypes {
   todo: TodosTypes;
+  removeTodo: (id: number) => void;
 }
 
-const TodoContent = ({ todo }: TodoContentPropsTypes) => {
+const TodoContent = ({ todo, removeTodo }: TodoContentPropsTypes) => {
   return (
     <div>
       <p>{todo.name}</p>
       <span>{todo.content}</span>
-      <button>삭제하기</button>
+      <button onClick={() => removeTodo(todo.id)}>삭제하기</button>
       {todo.done ? <button>취소</button> : <button>완료</button>}
     </div>
   );

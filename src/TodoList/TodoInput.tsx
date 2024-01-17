@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { TodoInputTypes } from './TodosTypes';
 
 interface TodoInputPropsTypes {
-  changeTodos: (todo: TodoInputTypes) => void;
+  addTodos: (todo: TodoInputTypes) => void;
 }
 
-const TodoInput = ({ changeTodos }: TodoInputPropsTypes) => {
+const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
   const [input, setInput] = useState<TodoInputTypes>({ name: '', content: '' });
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ const TodoInput = ({ changeTodos }: TodoInputPropsTypes) => {
       return;
     }
 
-    changeTodos(input);
+    addTodos(input);
     setInput({ name: '', content: '' });
   };
 

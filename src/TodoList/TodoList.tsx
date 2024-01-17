@@ -16,22 +16,33 @@ const TodoList = () => {
   ]);
   const id = useRef<number>(3);
 
-  const changeTodos = (todo: TodoInputTypes) => {
+  const addTodos = (todo: TodoInputTypes) => {
     const newTodo: TodosTypes = { ...todo, id: id.current, done: false };
-    const newTodos: TodosTypes[] = [...todos, newTodo];
+    const newTodos = [...todos, newTodo];
 
     setTodos(newTodos);
     id.current++;
   };
 
+  const removeTodo = (id: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
+
   return (
     <div>
-      <TodoInput changeTodos={changeTodos} />
+      <TodoInput addTodos={addTodos} />
       <div style={{ display: 'flex' }}>
         {todos.length > 0 &&
           todos.map((todo) => {
             if (!todo.done) {
-              return <TodoContent key={todo.id} todo={todo} />;
+              return (
+                <TodoContent
+                  removeTodo={removeTodo}
+                  key={todo.id}
+                  todo={todo}
+                />
+              );
             }
           })}
       </div>
@@ -39,7 +50,13 @@ const TodoList = () => {
         {todos.length > 0 &&
           todos.map((todo) => {
             if (todo.done) {
-              return <TodoContent key={todo.id} todo={todo} />;
+              return (
+                <TodoContent
+                  removeTodo={removeTodo}
+                  key={todo.id}
+                  todo={todo}
+                />
+              );
             }
           })}
       </div>
