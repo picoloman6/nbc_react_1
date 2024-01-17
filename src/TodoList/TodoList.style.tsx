@@ -24,6 +24,13 @@ export const StyledTodoInput = styled.input`
   margin-left: 15px;
 `;
 
+export const StyledInputErrMsg = styled.span<{ $msg: string; $type: string }>`
+  margin-top: 10px;
+
+  font-size: 14px;
+  color: ${({ $msg, $type }) => ($msg === $type ? 'red' : '#e2e2e2')};
+`;
+
 export const StyledTodoItemsWrapper = styled.div`
   display: flex;
   width: 100%;
