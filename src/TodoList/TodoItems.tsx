@@ -46,7 +46,9 @@ const TodoItems = ({
 }: TodoItemsPropsType) => {
   return (
     <div>
-      <StyledItemLable>{done ? 'Done' : 'working'}</StyledItemLable>
+      {todos.length > 0 && (
+        <StyledItemLable>{done ? 'Done' : 'working'}</StyledItemLable>
+      )}
       <StyledTodoItemsWrapper>
         {todos.length > 0 &&
           todos.map((todo) => (

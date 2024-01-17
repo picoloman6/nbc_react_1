@@ -46,6 +46,7 @@ const TodoList = () => {
   return (
     <div>
       <TodoInput addTodos={addTodos} />
+      {todos.length === 0 && <span>내용을 입력하세요</span>}
       {todos.length > 0 && (
         <TodoItems
           todos={todos.filter((todo) => todo.done === false)}
