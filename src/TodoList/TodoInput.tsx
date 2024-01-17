@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { TodoInputTypes } from './TodosTypes';
+import { StyledTodoInputWrapper, StyledTodoInput } from './TodoList.style';
 
 interface TodoInputPropsTypes {
   addTodos: (todo: TodoInputTypes) => void;
@@ -25,10 +26,10 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
   };
 
   return (
-    <div>
+    <StyledTodoInputWrapper>
       <div>
-        <span>제목</span>
-        <input
+        <label>제목</label>
+        <StyledTodoInput
           placeholder='제목을 입력하세요'
           value={input.name}
           name='name'
@@ -36,8 +37,8 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
         />
       </div>
       <div>
-        <span>내용</span>
-        <input
+        <label>내용</label>
+        <StyledTodoInput
           placeholder='내용을 입력하세요'
           value={input.content}
           name='content'
@@ -45,7 +46,7 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
         />
       </div>
       <button onClick={onClickButton}>추가하기</button>
-    </div>
+    </StyledTodoInputWrapper>
   );
 };
 
