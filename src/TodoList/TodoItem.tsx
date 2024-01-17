@@ -16,11 +16,9 @@ const TodoItem = ({
       <p>{todo.name}</p>
       <span>{todo.content}</span>
       <button onClick={() => removeTodo(todo.id)}>삭제하기</button>
-      {todo.done ? (
-        <button onClick={() => changeTodoStatus(todo.id)}>취소</button>
-      ) : (
-        <button onClick={() => changeTodoStatus(todo.id)}>완료</button>
-      )}
+      <button onClick={() => changeTodoStatus(todo.id)}>
+        {todo.done ? '취소' : '완료'}
+      </button>
     </div>
   );
 };
