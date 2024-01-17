@@ -29,6 +29,13 @@ const TodoList = () => {
     setTodos(newTodos);
   };
 
+  const changeTodoStatus = (id: number) => {
+    const newTodos = [...todos];
+    const idx = newTodos.findIndex((todo) => todo.id === id);
+    newTodos[idx]['done'] = !newTodos[idx]['done'];
+    setTodos(newTodos);
+  };
+
   return (
     <div>
       <TodoInput addTodos={addTodos} />
@@ -37,7 +44,12 @@ const TodoList = () => {
           todos.map((todo) => {
             if (!todo.done) {
               return (
-                <TodoItem removeTodo={removeTodo} key={todo.id} todo={todo} />
+                <TodoItem
+                  removeTodo={removeTodo}
+                  changeTodoStatus={changeTodoStatus}
+                  key={todo.id}
+                  todo={todo}
+                />
               );
             }
           })}
@@ -47,7 +59,12 @@ const TodoList = () => {
           todos.map(
             (todo) =>
               todo.done && (
-                <TodoItem removeTodo={removeTodo} key={todo.id} todo={todo} />
+                <TodoItem
+                  removeTodo={removeTodo}
+                  changeTodoStatus={changeTodoStatus}
+                  key={todo.id}
+                  todo={todo}
+                />
               )
           )}
       </div>
