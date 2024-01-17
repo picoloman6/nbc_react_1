@@ -15,7 +15,8 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
     setInput({ ...input, [name]: value });
   };
 
-  const onClickButton = () => {
+  const onClickButton = (e: React.FormEvent) => {
+    e.preventDefault();
     if (input.name === '' || input.content === '') {
       alert('값을 입력하세요');
       return;
