@@ -5,7 +5,7 @@ interface TodoContentPropsTypes {
   removeTodo: (id: number) => void;
 }
 
-const TodoContent = ({ todo, removeTodo }: TodoContentPropsTypes) => {
+const TodoItem = ({ todo, removeTodo }: TodoContentPropsTypes) => {
   return (
     <div>
       <p>{todo.name}</p>
@@ -16,4 +16,4 @@ const TodoContent = ({ todo, removeTodo }: TodoContentPropsTypes) => {
   );
 };
 
-export default TodoContent;
+export default TodoItem;

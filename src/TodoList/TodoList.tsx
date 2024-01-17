@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 
 import TodoInput from './TodoInput';
-import TodoContent from './TodoContent';
+import TodoItem from './TodoItem';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 
 const TodoList = () => {
@@ -37,28 +37,19 @@ const TodoList = () => {
           todos.map((todo) => {
             if (!todo.done) {
               return (
-                <TodoContent
-                  removeTodo={removeTodo}
-                  key={todo.id}
-                  todo={todo}
-                />
+                <TodoItem removeTodo={removeTodo} key={todo.id} todo={todo} />
               );
             }
           })}
       </div>
       <div style={{ display: 'flex' }}>
         {todos.length > 0 &&
-          todos.map((todo) => {
-            if (todo.done) {
-              return (
-                <TodoContent
-                  removeTodo={removeTodo}
-                  key={todo.id}
-                  todo={todo}
-                />
-              );
-            }
-          })}
+          todos.map(
+            (todo) =>
+              todo.done && (
+                <TodoItem removeTodo={removeTodo} key={todo.id} todo={todo} />
+              )
+          )}
       </div>
     </div>
   );
