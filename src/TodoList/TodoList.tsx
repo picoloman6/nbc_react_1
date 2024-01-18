@@ -1,25 +1,26 @@
-import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 import { StyledTodoListWrapper } from './TodoList.style';
-import { getTodoList } from '../apis/todolist';
+import { getTodoList, addTodoList } from '../apis/todolist';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodosTypes[]>([]);
-  const id = useRef<number>(9);
+  const id = useRef<number>(0);
 
   const getTodos = async () => {
     const data = (await getTodoList()) as React.SetStateAction<TodosTypes[]>;
+    id.current = data.length + 1;
     setTodos(data);
   };
 
-  const addTodos = (todo: TodoInputTypes) => {
+  const addTodo = async (todo: TodoInputTypes) => {
     const newTodo: TodosTypes = { ...todo, id: id.current, done: false };
     const newTodos = [...todos, newTodo];
 
+    await addTodoList(newTodo);
     setTodos(newTodos);
     id.current++;
   };
@@ -42,7 +43,7 @@ const TodoList = () => {
 
   return (
     <StyledTodoListWrapper>
-      <TodoInput addTodos={addTodos} />
+      <TodoInput addTodo={addTodo} />
       {todos.length === 0 && <span>내용을 입력하세요</span>}
       {todos.length > 0 && (
         <TodoItems

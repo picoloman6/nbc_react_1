@@ -1,5 +1,12 @@
 import db from './firebase.ts';
-import { getDocs, collection, query, orderBy } from 'firebase/firestore/lite';
+import {
+  getDocs,
+  addDoc,
+  collection,
+  query,
+  orderBy
+} from 'firebase/firestore/lite';
+import { TodoInputTypes } from '../TodoList/TodosTypes.ts';
 
 export const getTodoList = async () => {
   try {
@@ -13,4 +20,6 @@ export const getTodoList = async () => {
   }
 };
 
-export const setTodoList = async (todo) => {};
+export const addTodoList = async (todo: TodoInputTypes) => {
+  await addDoc(collection(db, 'todolist'), todo);
+};

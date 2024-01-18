@@ -8,10 +8,10 @@ import {
 } from './TodoList.style';
 
 interface TodoInputPropsTypes {
-  addTodos: (todo: TodoInputTypes) => void;
+  addTodo: (todo: TodoInputTypes) => void;
 }
 
-const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
+const TodoInput = ({ addTodo }: TodoInputPropsTypes) => {
   const [input, setInput] = useState<TodoInputTypes>({ name: '', content: '' });
   const [msg, setMsg] = useState<string>('');
 
@@ -32,7 +32,7 @@ const TodoInput = ({ addTodos }: TodoInputPropsTypes) => {
       return;
     }
 
-    addTodos(input);
+    addTodo(input);
     setInput({ name: '', content: '' });
     setMsg('');
   };
