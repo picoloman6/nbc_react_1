@@ -66,7 +66,7 @@ const TodoInput = ({ addTodo }: TodoInputPropsTypes) => {
           />
         </div>
         <StyledInputErrMsg $msg={msg} $type='content'>
-          제목을 입력하세요
+          내용을 입력하세요
         </StyledInputErrMsg>
       </div>
       <button onClick={onClickButton}>추가하기</button>
