@@ -6,7 +6,7 @@ import {
   query,
   orderBy
 } from 'firebase/firestore/lite';
-import { TodoInputTypes } from '../TodoList/TodosTypes.ts';
+import { TodoInputTypes } from '../components/TodoList/TodosTypes.ts';
 
 export const getTodoList = async () => {
   try {

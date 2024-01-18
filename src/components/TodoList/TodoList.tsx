@@ -4,7 +4,7 @@ import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 import { StyledTodoListWrapper } from './TodoList.style';
-import { getTodoList, addTodoList } from '../apis/todolist';
+import { getTodoList, addTodoList } from '../../apis/todolist';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodosTypes[]>([]);
