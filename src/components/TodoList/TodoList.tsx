@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
@@ -8,18 +8,28 @@ import { getTodoList, addTodoList } from '../../apis/todolist';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodosTypes[]>([]);
+  const id = useRef(1);
 
   const getTodos = async () => {
-    const data = (await getTodoList()) as React.SetStateAction<TodosTypes[]>;
-    setTodos(data);
+    try {
+      const data = (await getTodoList()) as React.SetStateAction<TodosTypes[]>;
+      setTodos(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const addTodo = async (todo: TodoInputTypes) => {
-    const newTodo: TodosTypes = { ...todo, done: false };
-    const newTodos = [...todos, newTodo];
+    try {
+      const newTodo: TodosTypes = { ...todo, done: false };
+      await addTodoList(newTodo);
 
-    await addTodoList(newTodo);
-    setTodos(newTodos);
+      newTodo.id = String(id.current);
+      id.current++;
+      setTodos([...todos, newTodo]);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const removeTodo = (id: string | undefined) => {
