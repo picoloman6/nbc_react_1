@@ -6,8 +6,8 @@ import {
 } from './TodoList.style';
 
 interface PropsTypes {
-  removeTodo: (id: number) => void;
-  changeTodoStatus: (id: number) => void;
+  removeTodo: (id: string | undefined) => void;
+  changeTodoStatus: (id: string | undefined) => void;
 }
 
 interface TodoItemPropsType extends PropsTypes {

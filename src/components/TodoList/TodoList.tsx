@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
@@ -8,29 +8,26 @@ import { getTodoList, addTodoList } from '../../apis/todolist';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<TodosTypes[]>([]);
-  const id = useRef<number>(0);
 
   const getTodos = async () => {
     const data = (await getTodoList()) as React.SetStateAction<TodosTypes[]>;
-    id.current = data.length + 1;
     setTodos(data);
   };
 
   const addTodo = async (todo: TodoInputTypes) => {
-    const newTodo: TodosTypes = { ...todo, id: id.current, done: false };
+    const newTodo: TodosTypes = { ...todo, done: false };
     const newTodos = [...todos, newTodo];
 
     await addTodoList(newTodo);
     setTodos(newTodos);
-    id.current++;
   };
 
-  const removeTodo = (id: number) => {
+  const removeTodo = (id: string | undefined) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
-  const changeTodoStatus = (id: number) => {
+  const changeTodoStatus = (id: string | undefined) => {
     const newTodos = [...todos];
     const idx = newTodos.findIndex((todo) => todo.id === id);
     newTodos[idx]['done'] = !newTodos[idx]['done'];
