@@ -21,6 +21,7 @@ const TodoList = () => {
   const setTodos = useCallback(async () => {
     try {
       const data = (await getTodoListApi()) as TodosTypes[];
+
       dispatch(setTodoslist(data));
       if (data.length > 0) {
         id.current = Number(data[data.length - 1]['id']) + 1;
@@ -30,32 +31,29 @@ const TodoList = () => {
     }
   }, [dispatch]);
 
-  const addTodo = useCallback(
-    async (todo: TodoInputTypes) => {
-      try {
-        const date = new Date().getTime();
-        const newTodo: TodosTypes = {
-          ...todo,
-          date,
-          done: false
-        };
+  const addTodo = async (todo: TodoInputTypes) => {
+    try {
+      const newTodo: TodosTypes = {
+        ...todo,
+        date: new Date().getTime(),
+        done: false
+      };
 
-        await addTodoListApi(newTodo, String(id.current));
+      await addTodoListApi(newTodo, String(id.current));
 
-        newTodo.id = String(id.current++);
+      newTodo.id = String(id.current++);
 
-        const newTodos: TodosTypes[] = [...todos, newTodo];
-        dispatch(setTodoslist(newTodos));
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    [dispatch, todos]
-  );
+      const newTodos: TodosTypes[] = [...todos, newTodo];
+      dispatch(setTodoslist(newTodos));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const removeTodo = async (id: string) => {
     try {
       const newTodos = todos.filter((todo) => todo.id !== id);
+
       await removeTodoListApi(id);
       dispatch(setTodoslist(newTodos));
     } catch (e) {
@@ -67,8 +65,10 @@ const TodoList = () => {
     try {
       const newTodos = [...todos];
       const idx = newTodos.findIndex((todo) => todo.id === id);
-      newTodos[idx] = { ...newTodos[idx], done: !newTodos[idx]['done'] };
-      await updateTodoDoneApi(id, newTodos[idx]['done']);
+      const done = newTodos[idx]['done'];
+
+      newTodos[idx] = { ...newTodos[idx], done: !done };
+      await updateTodoDoneApi(id, done);
       dispatch(setTodoslist(newTodos));
     } catch (e) {
       console.log(e);
