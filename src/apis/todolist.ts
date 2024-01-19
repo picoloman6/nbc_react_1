@@ -3,16 +3,13 @@ import {
   getDocs,
   setDoc,
   deleteDoc,
-  // updateDoc,
+  updateDoc,
   doc,
   collection,
   query,
   orderBy
 } from 'firebase/firestore/lite';
-import {
-  // TodoInputTypes
-  TodosTypes
-} from '../components/TodoList/TodosTypes.ts';
+import { TodosTypes } from '../components/TodoList/TodosTypes.ts';
 
 export const getTodoListApi = async () => {
   try {
@@ -31,13 +28,27 @@ export const getTodoListApi = async () => {
 };
 
 export const addTodoListApi = async (todo: TodosTypes, id: string) => {
-  await setDoc(doc(db, 'todolist', id), todo);
+  try {
+    await setDoc(doc(db, 'todolist', id), todo);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const removeTodoListApi = async (id: string) => {
-  await deleteDoc(doc(db, 'todolist', id));
+  try {
+    await deleteDoc(doc(db, 'todolist', id));
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-// export const updateTodoList =async (todo: TodosTypes) => {
-//   await updateDoc(collection(db, ))
-// }
+export const updateTodoDoneApi = async (id: string, done: boolean) => {
+  try {
+    await updateDoc(doc(db, 'todolist', id), {
+      done: !done
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

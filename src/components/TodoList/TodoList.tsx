@@ -7,7 +7,8 @@ import { StyledTodoListWrapper } from './TodoList.style';
 import {
   getTodoListApi,
   addTodoListApi,
-  removeTodoListApi
+  removeTodoListApi,
+  updateTodoDoneApi
 } from '../../apis/todolist';
 import { setTodoslist } from '../../modules/todolist';
 import { useAppSelector, useAppDispatch } from '../../modules';
@@ -53,16 +54,25 @@ const TodoList = () => {
   );
 
   const removeTodo = async (id: string) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    await removeTodoListApi(id);
-    dispatch(setTodoslist(newTodos));
+    try {
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      await removeTodoListApi(id);
+      dispatch(setTodoslist(newTodos));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const changeTodoStatus = (id: number) => {
-    const newTodos = [...todos];
-    const idx = newTodos.findIndex((todo) => todo.id === id);
-    newTodos[idx]['done'] = !newTodos[idx]['done'];
-    // setTodos(newTodos);
+  const updateTodoDone = async (id: string) => {
+    try {
+      const newTodos = [...todos];
+      const idx = newTodos.findIndex((todo) => todo.id === id);
+      newTodos[idx] = { ...newTodos[idx], done: !newTodos[idx]['done'] };
+      await updateTodoDoneApi(id, newTodos[idx]['done']);
+      dispatch(setTodoslist(newTodos));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -77,7 +87,7 @@ const TodoList = () => {
         <TodoItems
           todos={todos.filter((todo) => todo.done === false)}
           removeTodo={removeTodo}
-          changeTodoStatus={changeTodoStatus}
+          updateTodoDone={updateTodoDone}
           done={false}
         />
       )}
@@ -85,7 +95,7 @@ const TodoList = () => {
         <TodoItems
           todos={todos.filter((todo) => todo.done === true)}
           removeTodo={removeTodo}
-          changeTodoStatus={changeTodoStatus}
+          updateTodoDone={updateTodoDone}
           done={true}
         />
       )}

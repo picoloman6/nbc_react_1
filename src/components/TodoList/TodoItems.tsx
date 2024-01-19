@@ -7,7 +7,7 @@ import {
 
 interface PropsTypes {
   removeTodo: (id: string) => void;
-  changeTodoStatus: (id: string) => void;
+  updateTodoDone: (id: string) => void;
 }
 
 interface TodoItemPropsType extends PropsTypes {
@@ -19,18 +19,14 @@ interface TodoItemsPropsType extends PropsTypes {
   done: boolean;
 }
 
-const TodoItem = ({
-  todo,
-  removeTodo,
-  changeTodoStatus
-}: TodoItemPropsType) => {
+const TodoItem = ({ todo, removeTodo, updateTodoDone }: TodoItemPropsType) => {
   return (
     <StyledTodoItem>
       <span>{todo.name}</span>
       <span>{todo.content}</span>
       <div>
         <button onClick={() => removeTodo(String(todo.id))}>삭제하기</button>
-        <button onClick={() => changeTodoStatus(String(todo.id))}>
+        <button onClick={() => updateTodoDone(String(todo.id))}>
           {todo.done ? '취소' : '완료'}
         </button>
       </div>
@@ -41,7 +37,7 @@ const TodoItem = ({
 const TodoItems = ({
   todos,
   removeTodo,
-  changeTodoStatus,
+  updateTodoDone,
   done
 }: TodoItemsPropsType) => {
   return (
@@ -55,7 +51,7 @@ const TodoItems = ({
             <TodoItem
               todo={todo}
               removeTodo={removeTodo}
-              changeTodoStatus={changeTodoStatus}
+              updateTodoDone={updateTodoDone}
               key={todo.id}
             />
           ))}
