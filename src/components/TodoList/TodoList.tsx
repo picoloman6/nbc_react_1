@@ -1,56 +1,61 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 import { StyledTodoListWrapper } from './TodoList.style';
 import { getTodoList, addTodoList } from '../../apis/todolist';
-import { setTodos } from '../../modules/todolist';
+import { setTodoslist } from '../../modules/todolist';
 import { useAppSelector, useAppDispatch } from '../../modules';
 
 const TodoList = () => {
   const dispatch = useAppDispatch();
   const todos = useAppSelector((state) => state.todos.todos);
 
-  const id = useRef(1);
-
-  const getTodos = useCallback(async () => {
+  const setTodos = useCallback(async () => {
     try {
       const data = (await getTodoList()) as TodosTypes[];
-      dispatch(setTodos(data));
+      dispatch(setTodoslist(data));
     } catch (e) {
       console.log(e);
     }
   }, [dispatch]);
 
-  const addTodo = async (todo: TodoInputTypes) => {
-    try {
-      const newTodo: TodosTypes = { ...todo, done: false };
-      await addTodoList(newTodo);
+  const addTodo = useCallback(
+    async (todo: TodoInputTypes) => {
+      try {
+        const date = new Date().getTime();
+        const newTodo: TodosTypes = {
+          ...todo,
+          date,
+          done: false
+        };
+        await addTodoList(newTodo);
 
-      newTodo.id = String(id.current);
-      id.current++;
-      setTodos([...todos, newTodo]);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+        newTodo.id = String(date);
+        dispatch(setTodoslist([newTodo]));
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [dispatch]
+  );
 
   const removeTodo = (id: string | undefined) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
+    // setTodos(newTodos);
   };
 
   const changeTodoStatus = (id: string | undefined) => {
     const newTodos = [...todos];
     const idx = newTodos.findIndex((todo) => todo.id === id);
     newTodos[idx]['done'] = !newTodos[idx]['done'];
-    setTodos(newTodos);
+    // setTodos(newTodos);
   };
 
   useEffect(() => {
-    getTodos();
-  }, [getTodos]);
+    setTodos();
+  }, [setTodos]);
 
   return (
     <StyledTodoListWrapper>

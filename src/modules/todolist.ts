@@ -13,7 +13,7 @@ type ActionTypes = SetTodosTypes;
 
 const SET_ITEMS = 'todolist/SET_ITEMS';
 
-export const setTodos = (todos: TodosTypes[]) => ({
+export const setTodoslist = (todos: TodosTypes[]) => ({
   type: SET_ITEMS,
   todos
 });
@@ -25,9 +25,10 @@ const initialState: StateTypes = {
 const todoReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case SET_ITEMS:
+      console.log(state, action);
       return {
         ...state,
-        todos: action.todos
+        todos: [...state.todos, ...action.todos]
       };
     default:
       return state;
