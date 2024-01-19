@@ -6,8 +6,8 @@ import {
 } from './TodoList.style';
 
 interface PropsTypes {
-  removeTodo: (id: string | undefined) => void;
-  changeTodoStatus: (id: string | undefined) => void;
+  removeTodo: (id: string) => void;
+  changeTodoStatus: (id: string) => void;
 }
 
 interface TodoItemPropsType extends PropsTypes {
@@ -29,8 +29,8 @@ const TodoItem = ({
       <span>{todo.name}</span>
       <span>{todo.content}</span>
       <div>
-        <button onClick={() => removeTodo(todo.id)}>삭제하기</button>
-        <button onClick={() => changeTodoStatus(todo.id)}>
+        <button onClick={() => removeTodo(String(todo.id))}>삭제하기</button>
+        <button onClick={() => changeTodoStatus(String(todo.id))}>
           {todo.done ? '취소' : '완료'}
         </button>
       </div>

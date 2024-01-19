@@ -1,21 +1,29 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 import { StyledTodoListWrapper } from './TodoList.style';
-import { getTodoList, addTodoList } from '../../apis/todolist';
+import {
+  getTodoListApi,
+  addTodoListApi,
+  removeTodoListApi
+} from '../../apis/todolist';
 import { setTodoslist } from '../../modules/todolist';
 import { useAppSelector, useAppDispatch } from '../../modules';
 
 const TodoList = () => {
   const dispatch = useAppDispatch();
   const todos = useAppSelector((state) => state.todos.todos);
+  const id = useRef(1);
 
   const setTodos = useCallback(async () => {
     try {
-      const data = (await getTodoList()) as TodosTypes[];
+      const data = (await getTodoListApi()) as TodosTypes[];
       dispatch(setTodoslist(data));
+      if (data.length > 0) {
+        id.current = Number(data[data.length - 1]['id']) + 1;
+      }
     } catch (e) {
       console.log(e);
     }
@@ -30,23 +38,27 @@ const TodoList = () => {
           date,
           done: false
         };
-        await addTodoList(newTodo);
 
-        newTodo.id = String(date);
-        dispatch(setTodoslist([newTodo]));
+        await addTodoListApi(newTodo, String(id.current));
+
+        newTodo.id = String(id.current++);
+
+        const newTodos: TodosTypes[] = [...todos, newTodo];
+        dispatch(setTodoslist(newTodos));
       } catch (e) {
         console.log(e);
       }
     },
-    [dispatch]
+    [dispatch, todos]
   );
 
-  const removeTodo = (id: string | undefined) => {
+  const removeTodo = async (id: string) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
-    // setTodos(newTodos);
+    await removeTodoListApi(id);
+    dispatch(setTodoslist(newTodos));
   };
 
-  const changeTodoStatus = (id: string | undefined) => {
+  const changeTodoStatus = (id: number) => {
     const newTodos = [...todos];
     const idx = newTodos.findIndex((todo) => todo.id === id);
     newTodos[idx]['done'] = !newTodos[idx]['done'];

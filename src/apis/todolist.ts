@@ -1,18 +1,20 @@
 import db from './firebase.ts';
 import {
   getDocs,
-  addDoc,
+  setDoc,
+  deleteDoc,
   // updateDoc,
+  doc,
   collection,
   query,
   orderBy
 } from 'firebase/firestore/lite';
 import {
-  TodoInputTypes
-  // TodosTypes
+  // TodoInputTypes
+  TodosTypes
 } from '../components/TodoList/TodosTypes.ts';
 
-export const getTodoList = async () => {
+export const getTodoListApi = async () => {
   try {
     const comment = query(collection(db, 'todolist'), orderBy('date', 'asc'));
     const res = await getDocs(comment);
@@ -28,8 +30,12 @@ export const getTodoList = async () => {
   }
 };
 
-export const addTodoList = async (todo: TodoInputTypes) => {
-  await addDoc(collection(db, 'todolist'), todo);
+export const addTodoListApi = async (todo: TodosTypes, id: string) => {
+  await setDoc(doc(db, 'todolist', id), todo);
+};
+
+export const removeTodoListApi = async (id: string) => {
+  await deleteDoc(doc(db, 'todolist', id));
 };
 
 // export const updateTodoList =async (todo: TodosTypes) => {

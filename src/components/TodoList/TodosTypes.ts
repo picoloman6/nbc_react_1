@@ -4,7 +4,7 @@ export interface TodoInputTypes {
 }
 
 export interface TodosTypes extends TodoInputTypes {
-  id?: string | undefined;
+  id?: string;
   date: number;
   done: boolean;
 }
