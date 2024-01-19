@@ -1,23 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { TodosTypes, TodoInputTypes } from './TodosTypes';
 import { StyledTodoListWrapper } from './TodoList.style';
 import { getTodoList, addTodoList } from '../../apis/todolist';
+import { setTodos } from '../../modules/todolist';
+import { useAppSelector, useAppDispatch } from '../../modules';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<TodosTypes[]>([]);
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector((state) => state.todos.todos);
+
   const id = useRef(1);
 
-  const getTodos = async () => {
+  const getTodos = useCallback(async () => {
     try {
-      const data = (await getTodoList()) as React.SetStateAction<TodosTypes[]>;
-      setTodos(data);
+      const data = (await getTodoList()) as TodosTypes[];
+      dispatch(setTodos(data));
     } catch (e) {
       console.log(e);
     }
-  };
+  }, [dispatch]);
 
   const addTodo = async (todo: TodoInputTypes) => {
     try {
@@ -46,7 +50,7 @@ const TodoList = () => {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [getTodos]);
 
   return (
     <StyledTodoListWrapper>

@@ -1,25 +1,36 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-
 import { TodosTypes } from '../components/TodoList/TodosTypes';
 
 interface StateTypes {
   todos: TodosTypes[];
 }
 
+interface SetTodosTypes {
+  type: 'todolist/SET_ITEMS';
+  todos: TodosTypes[];
+}
+
+type ActionTypes = SetTodosTypes;
+
 const SET_ITEMS = 'todolist/SET_ITEMS';
 
-export const setTodos = (todo: TodosTypes) => ({ type: SET_ITEMS, todo });
+export const setTodos = (todos: TodosTypes[]) => ({
+  type: SET_ITEMS,
+  todos
+});
 
 const initialState: StateTypes = {
   todos: []
 };
 
-const todoReducer = (state = initialState, action: PayloadAction) => {
+const todoReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case SET_ITEMS:
       return {
-        todos: [...state.todos, action.payload]
+        ...state,
+        todos: action.todos
       };
+    default:
+      return state;
   }
 };
 
