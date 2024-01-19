@@ -47,7 +47,7 @@ const TodoItems = ({
   return (
     <div>
       {todos.length > 0 && (
-        <StyledItemLable>{done ? 'Done' : 'working'}</StyledItemLable>
+        <StyledItemLable>{done ? 'Done' : 'Working'}</StyledItemLable>
       )}
       <StyledTodoItemsWrapper>
         {todos.length > 0 &&
