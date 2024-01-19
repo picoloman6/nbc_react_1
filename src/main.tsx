@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import { GlobalStyle } from './main.style';
 import Header from './components/Header/Header';
 import TodoList from './components/TodoList/TodoList';
+import reducer from './modules/index';
 
 const store = configureStore({
-  reducer: {}
+  reducer
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
