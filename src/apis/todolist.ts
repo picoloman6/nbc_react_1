@@ -4,7 +4,8 @@ import {
   addDoc,
   // updateDoc,
   collection,
-  query
+  query,
+  orderBy
 } from 'firebase/firestore/lite';
 import {
   TodoInputTypes
@@ -13,7 +14,7 @@ import {
 
 export const getTodoList = async () => {
   try {
-    const comment = query(collection(db, 'todolist'));
+    const comment = query(collection(db, 'todolist'), orderBy('date', 'asc'));
     const res = await getDocs(comment);
     const data = res.docs.map((v) => {
       const tmp = v.data();
