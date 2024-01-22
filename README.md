@@ -22,10 +22,10 @@
   ![create](./images/create.gif)
 
 - todo 삭제
-  ![remove](./images/remove.gif)
+  ![remove](./images/remove2.gif)
 
 - todo 상태 변경
-  ![update](./images/update.gif)
+  ![update](./images/update2.gif)
 
 ## 📌 필수 구현 항목
 
