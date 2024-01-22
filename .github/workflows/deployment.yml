@@ -33,13 +33,13 @@ jobs:
       - name: Create .env
         run: |
           touch .env
-          echo TOKEN=${{ secrets.VITE_APIKEY }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_AUTHDOMAIN }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_PROJECTID }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_STORAGEBUCKET }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_MESSAGINGSENDERID }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_APPID }}\ >> .env
-          echo TOKEN=${{ secrets.VITE_MEASUREMENTID }}\ >> .env
+          echo VITE_APIKEY=${{ secrets.VITE_APIKEY }}\ >> .env
+          echo VITE_AUTHDOMAIN=${{ secrets.VITE_AUTHDOMAIN }}\ >> .env
+          echo VITE_PROJECTID=${{ secrets.VITE_PROJECTID }}\ >> .env
+          echo VITE_STORAGEBUCKET=${{ secrets.VITE_STORAGEBUCKET }}\ >> .env
+          echo VITE_MESSAGINGSENDERID=${{ secrets.VITE_MESSAGINGSENDERID }}\ >> .env
+          echo VITE_APPID=${{ secrets.VITE_APPID }}\ >> .env
+          echo VITE_MEASUREMENTID=${{ secrets.VITE_MEASUREMENTID }}\ >> .env
 
       - name: Npm install
         run: |
